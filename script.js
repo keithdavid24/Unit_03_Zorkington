@@ -247,7 +247,7 @@ export const domDisplay = (playerInput) => {
 
     console.log(currentRoom)
 
-    if (command === 'enter' && currentRoom.exits.includes(argument)) { // Player will use enter command to enter
+    if (command === 'enter' && currentRoom.exits.includes(argument)) { // Player will use enter command to enter to fullfill #03_4
         currentRoom = roomState[argument]
         return currentRoom.description
     } else if (command === 'pickup' && currentRoom.items.includes(argument)) { // Picking up item to fullfill ticket #3_03
@@ -265,7 +265,7 @@ export const domDisplay = (playerInput) => {
         } else {
             // const itemNames = player.inventory.map(item => itemLookup[item])
             // return `You have: ${itemNames.join(", ")}`
-            const itemNames = player.inventory.join(" , ") //this is the same as the above
+            const itemNames = player.inventory.join(" , ")
             return `You have: ${itemNames}`
         }
 
