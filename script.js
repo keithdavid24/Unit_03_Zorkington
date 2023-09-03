@@ -1,4 +1,4 @@
-/* 
+/*
     TODO for students
         General Setup:
             - This object is framed for you to fill out the values to help customize your game.
@@ -13,53 +13,314 @@
             - use your browsers console throughout testing.
 */
 
-export const gameDetails = {   
-    title: 'Game Title',
-    desc: 'Welcome to the world of... here are some quick rules & concepts...',
-    author: 'Student Name',
-    cohort: 'SBPT-2022',
-    startingRoomDescription: 'What you see before you is...',
+export const gameDetails = {
+    title: 'ZORK',
+    desc: 'Welcome to the world of MI:3 here are some quick rules & concepts. You are currently standing in front yard of a house. The objective is to find a note and make your way out of the house. ',
+    author: 'Keith David',
+    cohort: 'JUNEPT-2023',
+    startingRoomDescription: 'What you see before you is a spy game that lets you go through the house and find a way out with information to a secret mission. Should you choose to accept it. You are currently standing in the yard in front of the house ',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup',
+        'enter', 'lookup', 'pickup', 'inspect'
     ]
-    // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
+    // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference.
     // This shouldn't be more than 6-8 different commands.
 }
 
 // Your code here
+class Room {
+    constructor(name, description, items, exits) {
+        this.name = name;
+        this.description = description;
+        this.items = items;
+        this.exits = exits;
+
+    }
+    addItems(item) {
+        this.items.push(item);
+    }
+    addExit(direction, destination) {
+        this.availableExits[direction] = destination;
+    }
+    dropItem(itemName) {
+        this.items.push(itemName);
+    }
+}
+class Item {
+    constructor(name, description) {
+        this.name = name;
+        this.description = description;
+    }
+}
+class Player {
+    constructor(name, inventory) {
+        this.name = name;
+        this.inventory = [inventory];
+    }
+    pickup(item) {
+        this.inventory.push(item);
+    }
+    drop(item) {
+        this.inventory.pop(item);
+    }
+
+}
+
+// const rooms = {
+//     yard: new Room('yard', 'You are in a small, dark yard. You see a door to the north.', [], ['north']),
+//     garden: new Room('garden', 'You are in a large, bright garden. You see a door to the south.', [], ['south']),
+//     kitchen: new Room('kitchen', 'You are in a large, dark kitchen. You see a door to the east.', [], ['east']),
+//     livingRoom: new Room('living room', 'You are in a large, bright living room. You see a door to the west.', [], ['west']),
+//     bathroom: new Room('bathroom', 'You are in a large, dark bathroom. You see a door to the south.', [], ['south']),
+//     hallway: new Room('hallway', 'You are in a large, dark hallway. You see a door to the south.', [], ['south']),
+// }
+// // console.log(rooms);
+
+
+// // Room object constructors
+const yard = new Room('yard', 'You are in a small, dark yard. You see a door to the north.', ['knife'], ['garden'], {
+
+});
+const garden = new Room('garden', 'You are in a large, bright garden. You see a door to the south.', ['key'], ['kitchen', 'yard'], {
+
+});
+const kitchen = new Room('kitchen', 'You are in a large, dark kitchen. You see doors to the east, west, and south.', [], ['garden', 'livingRoom', 'hallway'], {
+
+});
+const livingRoom = new Room('living room', 'You are in a large, bright living room. You see a door to the west.', [], ['hallway', 'kitchen'], {
+
+});
+const office = new Room('office', 'You are in a large, dark office. You see a door to the east.', [], ['hallway'], {
+
+});
+const hallway = new Room('hallway', 'You are in a large, dark hallway. You see doors to the north and south.', [], ['basement', 'kitchen', 'office'], {
+
+});
+const basement = new Room('basement', 'You are in a large, dark basement. You see a door to the south.', [], ['yard'], {
+
+});
+
+// // // Set initial room
+// let currentRoom = yard;
+
+// // //Use state machine to create rooms so that you can move between them.
+// let rooms = {
+//     yard: {
+//         goTo: { north: 'garden' },
+//     },
+//     garden: {
+//         goTo: { south: 'yard' },
+//     },
+//     kitchen: {
+//         goTo: { east: 'livingRoom', west: 'hallway', south: 'office' },
+//     },
+//     office: {
+//         goTo: { west: 'kitchen' },
+//     },
+//     livingRoom: {
+//         goTo: { east: 'kitchen', west: 'hallway' },
+//     },
+//     hallway: {
+//         goTo: { north: 'livingRoom', south: 'hallway' },
+//     },
+//     basement: {
+//         goTo: { south: 'basement' },
+//     },
+// };
+// console.log(rooms);
+
+let roomState = {
+    'yard': yard,
+    'garden': garden,
+    'kitchen': kitchen,
+    'office': office,
+    'livingRoom': livingRoom,
+    'hallway': hallway,
+    'basement': basement
+
+}
+
+// const playerInput = {
+//     north: 'go north',
+//     south: 'go south',
+//     east: 'go east',
+//     west: 'go west',
+//     inspect: 'inspect',
+//     look: 'look',
+//     pickup: 'pickup',
+//     drop: 'drop', 'leave': 'leave',
+// }
+// console.log(playerInput);
+
+// const items = {
+//     key: new Item('key', 'A small key'),
+//     knife: new Item('knife', 'A small knife'),
+//     scotch: new Item('potion', 'A small potion'),
+//     book: new Item('book', 'A small book'),
+//     note: new Item('note', 'A small note'),
+// }
+
+// Item constructor
+const key = new Item('key', 'A small key', {
+
+});
+const knife = new Item('knife', 'A small knife', {
+
+});
+const scotch = new Item('potion', 'A small potion', {
+
+});
+const book = new Item('book', 'A small book', {
+
+});
+const note = new Item('note', 'A small note', {
+});
+
+
+
+// let playerInventory = [];
+
+// // const playerInput = handlePlayerInput(playerInput);
+
+
+// const player = {
+//     inventory: [],
+//     location: null,
+// }
+
+let itemLookup = {
+    'key': key,
+    'knife': knife,
+    'scotch': scotch,
+    'book': book,
+    'note': note,
+}
+console.log(itemLookup);
+// // let currentRoom = rooms.yard;
+
+let currentRoom = yard;
 
 export const domDisplay = (playerInput) => {
-    /* 
-        TODO: for students
-        - This function must return a string. 
-        - This will be the information that is displayed within the browsers game interface above the users input field.
+    // console.log(playerInput);
+    // let splitInput = playerInput.split(' ')
+    // // console.log(splitInput)
+    // const [a, b] = splitInput
+    // console.log(a)
+    // console.log(b)
+    // // console.log(rState[b])
+    // console.log(currentRoom)
+    // if (a === 'enter' && currentRoom.exits.includes(b)) {
+    //     currentRoom = rState[b]
+    //     return currentRoom.description
+    // }
 
-        - This function name cannot be altered. 
-        - "playerInput" is whatever text the user is typing within the input field in the browser after hitting the ENTER key.
-            - test this out with a console log.
+    //     /*
+    // TODO: for students
+    // - This function must return a string.
+    // - This will be the information that is displayed within the browsers game interface above the users input field.
 
-        What your player should be able to do (checklist):
-            - move between rooms
-            - view current room
-            - pickup moveable items
-                - there should be at least 2 items that cannot be moved.
-            - view player inventory
-        
-        Stretch Goals:
-            - drop items in "current room" (if a player picks up an item in one room and moves to another, they should be able to remove it from their inventory)
-            - create win/lose conditions.
-                - this could be a puzzle that may require an item to be within the players inventory to move forward, etc.
+    // - This function name cannot be altered.
+    // - "playerInput" is whatever text the user is typing within the input field in the browser after hitting the ENTER key.
+    // - test this out with a console log.
 
-        HINTS:
-            - consider the various methods that are available to use.
-            - arrays are a great way to hold "lists".
-            - You are not limited to just the exported function. Build additional functions and don't forget to hold the return within a variable.
-            - Review notes!
-                - Have them open as you build.
-                - break down each problem into small chunks
-                    - What is the process of picking up an item exactly? ex: Look. Pick from a list of items. Put into players list of items... 
-    */
+    // What your player should be able to do (checklist):
+    // - move between rooms
+    // - view current room
+    // - pickup moveable items
+    // - there should be at least 2 items that cannot be moved.
+    // - view player inventory
 
-    // Your code here
-} 
+    // Stretch Goals:
+    // - drop items in "current room" (if a player picks up an item in one room and moves to another, they should be able to remove it from their inventory)
+    // - create win/lose conditions.
+    // - this could be a puzzle that may require an item to be within the players inventory to move forward, etc.
+
+    // HINTS:
+    // - consider the various methods that are available to use.
+    // - arrays are a great way to hold "lists".
+    // - You are not limited to just the exported function. Build additional functions and don't forget to hold the return within a variable.
+    // - Review notes!
+    // - Have them open as you build.
+    // - break down each problem into small chunks
+    // - What is the process of picking up an item exactly? ex: Look. Pick from a list of items. Put into players list of items...
+    // */
+
+    let splitInput = playerInput.split(' ')
+    const [command, argument] = splitInput
+    console.log(command)
+    console.log(argument)
+
+    console.log(currentRoom)
+
+    if (command === 'enter' && currentRoom.exits.includes(argument)) {
+        currentRoom = roomState[argument]
+        return currentRoom.description
+    } else if (command === 'pickup' && currentRoom.items.includes(argument)) {
+        currentRoom.items.splice(currentRoom.items.indexOf(argument), 1)
+        player.inventory.push(argument)
+        return `You picked up the ${argument}.`
+        // } else if (command === 'drop') {
+        //     if (player.inventory.includes(argument)) {
+        //         const currentRoom = roomState[argument]
+        //         player.drop(argument)
+        //         currentRoom.dropItem(argument)
+        //         return 'You dropped the ${argument}';
+        //     } else {
+        //         return `You don't have ${argument} in your inventory.`
+        //     }
+        // }
+    } else if (command === 'drop' && player.inventory.includes(argument)) {
+        currentRoom.items.push(argument)
+        player.inventory.splice(player.inventory.indexOf(argument), 1)
+        return `You dropped the ${argument}.`
+    }
+    else if (command === 'lookup' && argument === 'inventory') {
+        if (player.inventory.length === 0) {
+            return "You have no items in your inventory."
+        } else {
+            // const itemNames = player.inventory.map(item => itemLookup[item])
+            // return `You have: ${itemNames.join(", ")}`
+            const itemNames = player.inventory.join(" , ") //this is the same as the above
+            return `You have: ${itemNames}`
+        }
+
+    } else { return `Invalid command: I dont know how to ${command}. Try something else` }
+
+    // console.log(currentRoom)
+
+    // if (playerInput === 'north') {
+    //     currentRoom = rooms.garden;
+    //     return currentRoom.description;
+    // } else if (playerInput === 'south') {
+    //     currentRoom = rooms.yard;
+    //     return currentRoom.description;
+    // } else if (playerInput === 'east') {
+    //     currentRoom = rooms.kitchen;
+    //     return currentRoom.description;
+    // } else if (playerInput === 'west') {
+    //     currentRoom = rooms.livingRoom;
+    //     return currentRoom.description;
+    // } else if (playerInput === 'inspect' || playerInput === 'look') {
+    //     if (currentRoom.items.length === 0) {
+    //         return "There are no items in this room.";
+    //     } else {
+    //         const itemNames = currentRoom.items.map(item => item.name);
+    //         return `Items in this room: ${itemNames.join(", ")}`;
+    //     }
+    // } else if (playerInput === 'pickup') {
+    //     if (currentRoom.items.length === 0) {
+    //         return "There are no items to pick up in this room.";
+    //     } else {
+
+    //         const itemNames = currentRoom.items.map(item => item.name);
+    //         return `Items in this room: ${itemNames.join(", ")}`;
+    //     }
+
+    // } else {
+    //     // return invaild command message
+    //     return `Invalid command: I dont know how to ${playerInput}. Try something else`
+    //     // Your code here
+    // }
+}
+
+const player = new Player();
