@@ -254,10 +254,20 @@ export const domDisplay = (playerInput) => {
         currentRoom.items.splice(currentRoom.items.indexOf(argument), 1)
         player.inventory.push(argument)
         return `You picked up the ${argument}.`
-    } else if (command === 'drop' && player.inventory.includes(argument)) { //Able to figure out how to drop item but not how to drop it in anoter location.
-        currentRoom.items.push(argument)
-        player.inventory.splice(player.inventory.indexOf(argument), 1)
-        return `You dropped the ${argument}.`
+        // } else if (command === 'drop' && player.inventory.includes(argument)) { //Able to figure out how to drop item but not how to drop it in anoter location.
+        //     currentRoom.items.push(argument)
+        //     player.inventory.splice(player.inventory.indexOf(argument), 1)
+        //     return `You dropped the ${argument}.`
+        // }
+    } else if (command === 'drop') {                        // For conor: what i tried to do to drop item in another location.
+        if (player.inventory.includes(argument)) {
+            const currentRoom = roomState[argument]
+            player.drop(argument)
+            currentRoom.dropItem(argument)
+            return 'You dropped the ${argument}';
+        } else {
+            return `You don't have ${argument} in your inventory.`
+        }
     }
     else if (command === 'lookup' && argument === 'inventory') { // unable to figure out how not to let the player remove an item from the inventory.
         if (player.inventory.length === 0) {
