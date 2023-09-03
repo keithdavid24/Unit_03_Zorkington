@@ -247,10 +247,10 @@ export const domDisplay = (playerInput) => {
 
     console.log(currentRoom)
 
-    if (command === 'enter' && currentRoom.exits.includes(argument)) {
+    if (command === 'enter' && currentRoom.exits.includes(argument)) { // Player will use enter command to enter
         currentRoom = roomState[argument]
         return currentRoom.description
-    } else if (command === 'pickup' && currentRoom.items.includes(argument)) {
+    } else if (command === 'pickup' && currentRoom.items.includes(argument)) { // Picking up item to fullfill ticket #3_03
         currentRoom.items.splice(currentRoom.items.indexOf(argument), 1)
         player.inventory.push(argument)
         return `You picked up the ${argument}.`
