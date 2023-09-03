@@ -15,10 +15,10 @@
 
 export const gameDetails = {
     title: 'ZORK',
-    desc: 'Welcome to the world of MI:3 here are some quick rules & concepts. You are currently standing in front yard of a house. The objective is to find a note and make your way out of the house. ',
+    desc: 'Welcome to the world of MI:3 here are some quick rules & concepts. You are currently standing in front yard of a house. The objective is to find a note and make your way out of the house. Use the commands listed at the bottom of the screen to move and interact with the game. For example: you COMMANDS like "enter garden" to enter the garden ',
     author: 'Keith David',
     cohort: 'JUNEPT-2023',
-    startingRoomDescription: 'What you see before you is a spy game that lets you go through the house and find a way out with information to a secret mission. Should you choose to accept it. You are currently standing in the yard in front of the house ',
+    startingRoomDescription: 'What you see before you is a spy game that lets you go through the house and find a way out with information to a secret mission. Should you choose to accept it. You are currently standing in the yard in front of the house! ',
     playerCommands: [
         // replace these with your games commands as needed
         'enter', 'lookup', 'pickup', 'inspect'
@@ -28,6 +28,7 @@ export const gameDetails = {
 }
 
 // Your code here
+// Here I create classes, methods and dictionary
 class Room {
     constructor(name, description, items, exits) {
         this.name = name;
@@ -42,9 +43,9 @@ class Room {
     addExit(direction, destination) {
         this.availableExits[direction] = destination;
     }
-    dropItem(itemName) {
-        this.items.push(itemName);
-    }
+    // dropItem(itemName) {
+    //     this.items.push(itemName);
+    // }
 }
 class Item {
     constructor(name, description) {
@@ -66,37 +67,28 @@ class Player {
 
 }
 
-// const rooms = {
-//     yard: new Room('yard', 'You are in a small, dark yard. You see a door to the north.', [], ['north']),
-//     garden: new Room('garden', 'You are in a large, bright garden. You see a door to the south.', [], ['south']),
-//     kitchen: new Room('kitchen', 'You are in a large, dark kitchen. You see a door to the east.', [], ['east']),
-//     livingRoom: new Room('living room', 'You are in a large, bright living room. You see a door to the west.', [], ['west']),
-//     bathroom: new Room('bathroom', 'You are in a large, dark bathroom. You see a door to the south.', [], ['south']),
-//     hallway: new Room('hallway', 'You are in a large, dark hallway. You see a door to the south.', [], ['south']),
-// }
-// // console.log(rooms);
 
 
 // // Room object constructors
-const yard = new Room('yard', 'You are in a small, dark yard. You see a door to the north.', ['knife'], ['garden'], {
+const yard = new Room('yard', 'You are in a small, dark yard. You see a entrance to the garden to the north.', [], ['garden'], {
 
 });
-const garden = new Room('garden', 'You are in a large, bright garden. You see a door to the south.', ['key'], ['kitchen', 'yard'], {
+const garden = new Room('garden', 'You are in a large, bright garden full of pretty flowers. Pick up a key to enter the house. You see a door to the south. Looks like a "kitchen".', ['key'], ['kitchen', 'yard'], {
 
 });
-const kitchen = new Room('kitchen', 'You are in a large, dark kitchen. You see doors to the east, west, and south.', [], ['garden', 'livingRoom', 'hallway'], {
+const kitchen = new Room('kitchen', 'You are in a large, dark kitchen. You see doors to the "garden", "living room" and the "hallway". Pick up a knife to protect yourself!!', ['knife'], ['garden', 'livingroom', 'hallway'], {
 
 });
-const livingRoom = new Room('living room', 'You are in a large, bright living room. You see a door to the west.', [], ['hallway', 'kitchen'], {
+const livingRoom = new Room('living room', 'You are in a large, bright living room. You see a door to the "hallway" and one back to the "kitchen". Pick up scotch if thristy!', ['scotch'], ['hallway', 'kitchen'], {
 
 });
-const office = new Room('office', 'You are in a large, dark office. You see a door to the east.', [], ['hallway'], {
+const office = new Room('office', 'You are in a large, dark office. You see a door back to the "hallway". You see a book.', ['book'], ['hallway'], {
 
 });
-const hallway = new Room('hallway', 'You are in a large, dark hallway. You see doors to the north and south.', [], ['basement', 'kitchen', 'office'], {
+const hallway = new Room('hallway', 'You are in a large, dark hallway. You see doors back to "kitchen" and the "office". But you also see a door towards the back of the house it looks like a secret door leading to the "basement". In the office you see and note that has information to your next mission!"Should you choose to accept it"', ['note'], ['basement', 'kitchen', 'office'], {
 
 });
-const basement = new Room('basement', 'You are in a large, dark basement. You see a door to the south.', [], ['yard'], {
+const basement = new Room('basement', 'You are in a large, dark basement. Looks like the basement has a secret tunnel that leads you back to the "yard". Pick up the bag in the basement to help you on your mission', ['bag'], ['yard'], {
 
 });
 
@@ -134,7 +126,7 @@ let roomState = {
     'garden': garden,
     'kitchen': kitchen,
     'office': office,
-    'livingRoom': livingRoom,
+    'livingroom': livingRoom,
     'hallway': hallway,
     'basement': basement
 
@@ -175,7 +167,9 @@ const book = new Item('book', 'A small book', {
 });
 const note = new Item('note', 'A small note', {
 });
+const bag = new Item('bag', 'A small bag', {
 
+})
 
 
 // let playerInventory = [];
@@ -194,6 +188,7 @@ let itemLookup = {
     'scotch': scotch,
     'book': book,
     'note': note,
+    'bag': bag
 }
 console.log(itemLookup);
 // // let currentRoom = rooms.yard;
