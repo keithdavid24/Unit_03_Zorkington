@@ -259,7 +259,7 @@ export const domDisplay = (playerInput) => {
         player.inventory.splice(player.inventory.indexOf(argument), 1)
         return `You dropped the ${argument}.`
     }
-    else if (command === 'lookup' && argument === 'inventory') {
+    else if (command === 'lookup' && argument === 'inventory') { // unable to figure out how not to let the player remove an item from the inventory.
         if (player.inventory.length === 0) {
             return "You have no items in your inventory."
         } else {
